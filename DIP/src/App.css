@@ -1,0 +1,123 @@
+/* 
+body {
+  background-color: #121212;
+  color: white;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  
+}
+
+.container {
+  background-color: #1E1E1E;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  width: 500px;
+  box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+
+  margin-left: 20vw;
+  transform: translate(-50%, -50%);
+}
+
+
+.upload-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+input[type="file"] {
+  padding: 8px;
+  background-color: #2A2A2A;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button {
+  background-color: #FF9800;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #E68900;
+}
+
+select {
+  padding: 8px;
+  background-color: #2A2A2A;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.image-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.image-box {
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.uploaded-image, .processed-image {
+  width: 250px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.3);
+}
+
+
+.processing-effect {
+  width: 250px;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  animation: blink 0.7s infinite alternate, blurEffect 1s infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+}
+
+
+@keyframes blink {
+  0% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+@keyframes blurEffect {
+  0% { filter: blur(5px); }
+  100% { filter: blur(2px); }
+}
+ */

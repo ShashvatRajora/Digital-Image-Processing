@@ -1,0 +1,129 @@
+/* Center everything properly */
+.upload-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.2);
+    justify-content: center;
+    align-items: center;
+}
+
+/* Upload Box - Centered and Stylish */
+.upload-box {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.2);
+    justify-content: center;
+    align-items: center;
+}
+
+/* File Input & Dropdown */
+input[type="file"], select {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+input[type="file"]:hover, select:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Upload Button */
+button {
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+}
+
+button:hover {
+    background: linear-gradient(135deg, #66BB6A, #388E3C);
+    transform: scale(1.05);
+}
+
+/* Image Display - Properly Centered & Glossy */
+.image-container {
+    display: flex;
+    gap: 50px; /* More space between images */
+    margin-top: 20px;
+    justify-content: center;
+}
+
+/* Glossy Image Box */
+.image-box {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.3);
+    text-align: center;
+}
+
+/* Larger, Sharper Images */
+.uploaded-image, .processed-image {
+    width: 400px; /* Bigger for clarity */
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Processing Effect - Blinking */
+.processing-effect {
+    width: 400px;
+    height: auto;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    animation: blink 1s infinite alternate;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+}
+
+@keyframes blink {
+    0% { opacity: 0.2; }
+    100% { opacity: 1; }
+}
+
+/* Download Button */
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.download-btn {
+    background: linear-gradient(135deg, #FF9800, #E65100);
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+}
+
+.download-btn:hover {
+    background: linear-gradient(135deg, #FFB74D, #EF6C00);
+    transform: scale(1.05);
+}
