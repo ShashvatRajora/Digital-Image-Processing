@@ -1,27 +1,85 @@
+//completely working code
+
+// import React, { useState } from "react";
+// import axios from "axios";
+
+// const UploadForm = ({ setFilename, setFilter, setIsProcessing }) => {
+//   const [selectedFile, setSelectedFile] = useState(null);
+
+//   const handleFileChange = (event) => {
+//     const file = event.target.files[0];
+//     setSelectedFile(file);
+//     setFilename(file.name);  // ✅ Immediately set filename for the original image display
+//   };
+
+//   const handleUpload = async (filterType) => {
+//     if (!selectedFile) {
+//       alert("Please select an image first!");
+//       return;
+//     }
+
+//     const formData = new FormData();
+//     formData.append("file", selectedFile);
+//     formData.append("filter", filterType);
+
+//     setIsProcessing(true);  // ✅ Show the loader
+
+//     try {
+//       const response = await axios.post("http://127.0.0.1:5000/upload", formData);
+//       const data = response.data;
+
+//       if (data.success) {
+//         setFilter(filterType);  // ✅ Update the filter type
+//         setFilename(selectedFile.name);  // ✅ Ensure the filename is set correctly
+//       } else {
+//         alert("Error: " + data.error);
+//       }
+//     } catch (error) {
+//       console.error("Error processing image:", error);
+//       alert("Failed to process the image.");
+//     } finally {
+//       setIsProcessing(false);  // ✅ Hide the loader
+//     }
+//   };
+
+//   return (
+//     <div className="flex flex-col gap-4">
+//       <input
+//         type="file"
+//         onChange={handleFileChange}
+//         className="block w-full p-2 text-white bg-gray-700 border border-gray-600 rounded-md cursor-pointer"
+//       />
+//       <div className="grid grid-cols-3 gap-2 mt-4">
+//         {["sharpen", "blur", "edge_x", "emboss", "outline", "high_pass"].map((filter) => (
+//           <button
+//             key={filter}
+//             onClick={() => handleUpload(filter)}
+//             className="px-4 py-2 bg-blue-600 rounded-md hover:bg-blue-800"
+//           >
+//             {filter.charAt(0).toUpperCase() + filter.slice(1)}
+//           </button>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default UploadForm;
+
+
 import React, { useState } from "react";
 import axios from "axios";
-import "./styles.css";
 
-
-const UploadForm = () => {
+const UploadForm = ({ setFilename, setFilter, setIsProcessing }) => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [filter, setFilter] = useState("sharpen");
-  const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
-  const [processedImageUrl, setProcessedImageUrl] = useState(null);
-  const [isProcessing, setIsProcessing] = useState(false);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
-
-    // Show uploaded image instantly
-    if (file) {
-      setUploadedImageUrl(URL.createObjectURL(file));
-      setProcessedImageUrl(null); // Reset processed image
-    }
+    setFilename(file.name);
   };
 
-  const handleUpload = async () => {
+  const handleUpload = async (filterType) => {
     if (!selectedFile) {
       alert("Please select an image first!");
       return;
@@ -29,58 +87,45 @@ const UploadForm = () => {
 
     const formData = new FormData();
     formData.append("file", selectedFile);
-    formData.append("filter", filter);
+    formData.append("filter", filterType);
 
-    setIsProcessing(true); // Start Processing Effect
+    setIsProcessing(true);
 
     try {
       const response = await axios.post("http://127.0.0.1:5000/upload", formData);
-      if (response.data.success) {
-        setTimeout(() => {
-          setProcessedImageUrl(`http://127.0.0.1:5000/processed/${filter}_${selectedFile.name}`);
-          setIsProcessing(false); // Stop Blinking
-        }, 2000); // Show effect for 2 seconds
+      const data = response.data;
+
+      if (data.success) {
+        setFilter(filterType);
+        setFilename(selectedFile.name);
+      } else {
+        alert("Error: " + data.error);
       }
     } catch (error) {
       console.error("Error processing image:", error);
+      alert("Failed to process the image.");
+    } finally {
       setIsProcessing(false);
     }
   };
 
   return (
-    <div className="container">
-      
-      <div className="upload-box">
-        <input type="file" onChange={handleFileChange} />
-        <select value={filter} onChange={(e) => setFilter(e.target.value)}>
-          <option value="sharpen">Sharpen</option>
-          <option value="blur">Blur</option>
-          <option value="edge_x">Edge Detection</option>
-          <option value="emboss">Emboss</option>
-          <option value="outline">Outline</option>
-          <option value="high_pass">High Pass</option>
-        </select>
-        <button onClick={handleUpload}>Upload & Apply Filter</button>
-      </div>
-
-      <div className="image-container">
-        {uploadedImageUrl && (
-          <div className="image-box">
-            <h3>Original</h3>
-            <img src={uploadedImageUrl} alt="Uploaded" className="uploaded-image" />
-          </div>
-        )}
-
-        {uploadedImageUrl && (
-          <div className="image-box">
-            <h3>Processed</h3>
-            {isProcessing ? (
-              <div className="processing-effect">Processing...</div>
-            ) : (
-              processedImageUrl && <img src={processedImageUrl} alt="Processed" className="processed-image" />
-            )}
-          </div>
-        )}
+    <div className="flex flex-col gap-4">
+      <input
+        type="file"
+        onChange={handleFileChange}
+        className="block w-full p-2 text-white bg-gray-700 border border-gray-600 rounded-md cursor-pointer"
+      />
+      <div className="grid grid-cols-3 gap-2 mt-4">
+        {["sharpen", "blur", "edge_x", "emboss", "outline", "high_pass"].map((filter) => (
+          <button
+            key={filter}
+            onClick={() => handleUpload(filter)}
+            className="px-4 py-2 bg-teal-600 rounded-md hover:bg-teal-700 active:bg-teal-800 shadow-md hover:shadow-lg transition-all duration-300"
+          >
+            {filter.charAt(0).toUpperCase() + filter.slice(1)}
+          </button>
+        ))}
       </div>
     </div>
   );
