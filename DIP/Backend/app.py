@@ -10,11 +10,26 @@ CORS(app)  # Enable CORS for frontend requests
 
 UPLOAD_FOLDER = "uploads"
 PROCESSED_FOLDER = "processed"
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "bmp"}  # Supported formats
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(PROCESSED_FOLDER, exist_ok=True)
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["PROCESSED_FOLDER"] = PROCESSED_FOLDER
+
+# Helper function to check allowed file extensions
+def allowed_file(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+
+# Clear old files to avoid clutter (executed at server start)
+def clear_old_files(folder):
+    for filename in os.listdir(folder):
+        file_path = os.path.join(folder, filename)
+        try:
+            os.remove(file_path)
+            print(f"Deleted old file: {file_path}")
+        except Exception as e:
+            print(f"Failed to delete {file_path}: {e}")
 
 # Convolution Function
 def apply_custom_convolution(image, kernel):
@@ -52,14 +67,12 @@ def upload_image():
 
     if file.filename == "":
         return jsonify({"error": "No selected file"}), 400
+    if not allowed_file(file.filename):
+        return jsonify({"error": "Unsupported file type"}), 400
 
     filename = secure_filename(file.filename)
     file_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
     file.save(file_path)
-
-    # Debug: Check if the image is saved correctly
-    if not os.path.exists(file_path):
-        return jsonify({"error": "File failed to save"}), 500
 
     # Read image correctly for OpenCV
     image = cv2.imread(file_path, cv2.IMREAD_COLOR)
@@ -87,12 +100,25 @@ def upload_image():
 # Route to serve uploaded images
 @app.route("/uploads/<filename>")
 def get_uploaded_image(filename):
-    return send_from_directory(UPLOAD_FOLDER, filename)
+    try:
+        return send_from_directory(UPLOAD_FOLDER, filename)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
-# Route to serve processed images
+# Route to serve processed images (with download support)
 @app.route("/processed/<filename>")
 def get_processed_image(filename):
-    return send_from_directory(PROCESSED_FOLDER, filename)
+    try:
+        return send_from_directory(
+            PROCESSED_FOLDER, 
+            filename, 
+            as_attachment=True  # Force download
+        )
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
+    # Clear old files when the server starts
+    clear_old_files(UPLOAD_FOLDER)
+    clear_old_files(PROCESSED_FOLDER)
     app.run(debug=True)
