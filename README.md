@@ -22,13 +22,6 @@ This project is a lightweight Flask-based API that allows users to upload images
 | `outline`      | Grayscale edge outline via Canny      |
 | `high_pass`    | Emphasizes high-frequency details     |
 
-## 📦 Project Structure
-
-├── app.py 
-├── uploads/ 
-├── processed/ 
-
-## Results 
 
 
 
