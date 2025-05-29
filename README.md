@@ -11,7 +11,7 @@ This project is a lightweight Flask-based API that allows users to upload images
 - CORS-enabled for frontend integration
 - Supports PNG, JPG, JPEG, BMP, GIF, and WebP formats
 
-## 🧪 Available Filters
+## Available Filters
 
 | Filter Name    | Description                           |
 |----------------|---------------------------------------|
